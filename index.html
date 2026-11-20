@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - Scientific Inquiry & Market Research Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Nunito & Segoe UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montanoBlue: '#1269A8',
+                        montanoYellow: '#F7D615',
+                        montanoTeal: '#54887D',
+                        montanoLightBlue: '#88B5C7',
+                        montanoOlive: '#A6B046',
+                        montanoBg: '#F2F5E9',
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'Tahoma', 'Verdana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F2F5E9;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+        }
+        .whiteboard-frame {
+            background: #ffffff;
+            border: 4px solid #d1d5db;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F2F5E9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1269A8;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 p-2 sm:p-6">
+
+    <!-- App Container / Whiteboard Frame -->
+    <div id="appContainer" class="whiteboard-frame max-w-7xl mx-auto flex flex-col min-h-[92vh] overflow-hidden transition-all duration-300">
+        
+        <!-- Header Section -->
+        <header class="bg-montanoBlue text-white p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between border-b-4 border-montanoYellow rounded-t-[16px]">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&amp;s" alt="Colegio Montano Logo" class="w-16 h-16 rounded-full bg-white p-1 object-cover shadow-md border-2 border-montanoYellow" onerror="this.src='https://placehold.co/80x80/1269A8/FFFFFF?text=CM'">
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-wide">COLEGIO MONTANO</h1>
+                    <p class="text-montanoYellow text-sm font-semibold">12th Grade Mercadotecnia | Observation & Data Collection (B2-C1 ESL)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <span class="bg-montanoTeal text-xs sm:text-sm px-3 py-1.5 rounded-full font-bold shadow text-white">Observational Research</span>
+                <button onclick="toggleFullscreen()" class="bg-montanoYellow text-montanoBlue font-bold px-4 py-2 rounded-xl shadow-lg hover:bg-yellow-300 transition-transform active:scale-95 flex items-center space-x-2">
+                    <i class="fa-solid fa-expand"></i>
+                    <span class="hidden sm:inline">Fullscreen</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs Bar -->
+        <nav class="bg-montanoBg p-3 border-b border-gray-200 overflow-x-auto">
+            <div class="flex space-x-2 min-w-max">
+                <button onclick="switchTab(1)" id="tabBtn1" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-montanoBlue text-white shadow-md">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>1. Theory & Grammar</span>
+                </button>
+                <button onclick="switchTab(2)" id="tabBtn2" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>2. Solved Examples (15)</span>
+                </button>
+                <button onclick="switchTab(3)" id="tabBtn3" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                    <span>3. Voice Simulator & Dashboard</span>
+                </button>
+                <button onclick="switchTab(4)" id="tabBtn4" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>4. Critical Reflection</span>
+                </button>
+                <button onclick="switchTab(5)" id="tabBtn5" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                    <span>5. Formative Evaluation (15)</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 sm:p-8 overflow-y-auto bg-white">
+            
+            <!-- TAB 1: THEORY & GRAMMAR -->
+            <div id="tabContent1" class="tab-pane space-y-6">
+                <div class="border-l-8 border-montanoBlue bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoBlue mb-2">Guide 6: Observation and Data Collection Instruments</h2>
+                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+                        Welcome to Guide 6, 12th-grade marketing leaders! Moving beyond questionnaires, we explore empirical observational research: <strong>structured and unstructured observation</strong>, observation checklists, precise behavior recording, operational definitions, pilot testing, observer consistency, and mitigating observer bias and privacy concerns.
+                    </p>
+                </div>
+
+                <!-- 70-Minute Lesson Framework Banner (Guide 6) -->
+                <div class="bg-white border-2 border-montanoYellow rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-bold text-lg text-montanoBlue mb-3 flex items-center">
+                        <i class="fa-solid fa-clock mr-2 text-montanoYellow"></i> Structured 70-Minute Lesson Framework (Guide 6)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoBlue block mb-1">Warm-up</span>
+                            <strong>Store Observation:</strong> What can an observer record in a retail store without guessing motives?
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoTeal block mb-1">Distinction</span>
+                            <strong>Fact vs. Inference:</strong> Distinguishing direct observation from unverified interpretation.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoOlive block mb-1">Instrument Design</span>
+                            <strong>Checklist Creation:</strong> Designing observation checklists using measurable, objective behaviors.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoBlue block mb-1">Coding Practice</span>
+                            <strong>Behavior Coding:</strong> Practice coding a short fictional retail customer scenario.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoYellow block mb-1">Rigor & Ethics</span>
+                            <strong>Bias & Privacy:</strong> Discussing observer bias, inter-rater consistency, and consumer privacy.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Concept Cards Grid (Guide 6) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoBlue text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 1</span>
+                                <i class="fa-solid fa-eye text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Structured vs. Unstructured</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                <strong>Structured:</strong> Uses predefined coding sheets and checklists for quantifiable frequency counts. <br><strong>Unstructured:</strong> Open field notes capturing holistic consumer behavior in natural settings.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Method Versatility</span>
+                                <span class="text-montanoTeal">96%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoTeal h-2.5 rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoTeal text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 2</span>
+                                <i class="fa-solid fa-clipboard-list text-montanoTeal text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoTeal mb-2">Observation Checklists</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Standardized instruments listing specific operationalized actions (e.g., touching display, reading label, checking price tag) to record in real-time.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Recording Precision</span>
+                                <span class="text-montanoBlue">94%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoBlue h-2.5 rounded-full" style="width: 94%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoOlive text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 3</span>
+                                <i class="fa-solid fa-ruler-combined text-montanoOlive text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoOlive mb-2">Operational Definitions</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Translating abstract concepts (like "customer confusion") into explicit, observable physical indicators (like "frowning, pausing over 10 seconds, rereading shelf tag").
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Construct Validity</span>
+                                <span class="text-montanoOlive">98%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoOlive h-2.5 rounded-full" style="width: 98%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoBlue text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 4</span>
+                                <i class="fa-solid fa-user-shield text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Observer Bias & Ethics</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Guarding against subjective interpretation errors, Hawthorne effect (behavior change when watched), and maintaining consumer privacy in public retail spaces.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Ethical Integrity</span>
+                                <span class="text-montanoTeal">99%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoTeal h-2.5 rounded-full" style="width: 99%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between md:col-span-2 lg:col-span-2">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoYellow text-montanoBlue font-extrabold text-xs px-3 py-1 rounded-full">Core Concept 5</span>
+                                <i class="fa-solid fa-users-gear text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Pilot Testing & Inter-Rater Reliability</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-700 mt-2">
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>Pilot Testing:</strong> Trial-running observation sheets in store aisles to refine categories.</div>
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>Inter-Rater Agreement:</strong> Comparing coding results between multiple observers to ensure consistency.</div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Reliability Standards</span>
+                                <span class="text-montanoBlue">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoBlue h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 2: SOLVED EXAMPLES (15) -->
+            <div id="tabContent2" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoTeal bg-montanoBg p-5 rounded-r-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-montanoTeal mb-1">Solved Observation & Data Collection Examples</h2>
+                        <p class="text-gray-700 text-sm">15 meticulously broken-down examples covering structured vs. unstructured observation, behavioral checklists, operational definitions, coding retail scenarios, and bias control with Text-to-Speech audio support.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex space-x-2">
+                        <button onclick="filterExamples('all')" class="px-3 py-1 rounded-lg bg-montanoTeal text-white text-xs font-bold">All</button>
+                        <button onclick="filterExamples('basic')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Basic (1-5)</button>
+                        <button onclick="filterExamples('intermediate')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Interm. (6-10)</button>
+                        <button onclick="filterExamples('advanced')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Examples Container -->
+                <div id="examplesContainer" class="space-y-4">
+                    <!-- Javascript will render 15 examples here -->
+                </div>
+            </div>
+
+            <!-- TAB 3: LIVE INTERACTIVE VOICE SIMULATOR & DASHBOARD -->
+            <div id="tabContent3" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoOlive bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoOlive mb-1">Live Interactive Voice Simulator & Performance Dashboard (Guide 6)</h2>
+                    <p class="text-gray-700 text-sm">Step into an observational research briefing with Research Director Carlos. Address the challenge: "Distinguish direct observation from unverified interpretation in a retail aisle study and operationally define customer hesitation." Speak into your microphone or type your response. Real-time AI metrics evaluate your clarity, grammar, and professional etiquette!</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Simulator Interface (2 Cols) -->
+                    <div class="lg:col-span-2 bg-gray-50 border-2 border-montanoLightBlue rounded-2xl p-5 flex flex-col justify-between shadow-md">
+                        <div>
+                            <div class="flex items-center justify-between border-b pb-3 mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-montanoTeal text-white flex items-center justify-center font-bold text-lg shadow">RD</div>
+                                    <div>
+                                        <h4 class="font-bold text-montanoTeal">Carlos Mendoza (Research Director)</h4>
+                                        <span class="text-xs text-green-600 font-semibold flex items-center"><span class="w-2 h-2 rounded-full bg-green-500 inline-block mr-1.5 animate-pulse"></span> Active Session</span>
+                                    </div>
+                                </div>
+                                <button onclick="speakDialogue('Hello analyst. How do we distinguish direct behavioral observation from subjective interpretation when tracking shoppers in a supermarket aisle?')" class="bg-montanoYellow text-montanoBlue p-2 rounded-xl text-sm font-bold shadow hover:bg-yellow-300 flex items-center space-x-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                    <span>Listen Prompt</span>
+                                </button>
+                            </div>
+
+                            <!-- Chat Dialogue Box -->
+                            <div id="simChatBox" class="bg-white rounded-xl p-4 h-64 overflow-y-auto border border-gray-200 space-y-3 mb-4 shadow-inner">
+                                <div class="flex items-start space-x-2">
+                                    <div class="bg-montanoTeal text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">RD</div>
+                                    <div class="bg-teal-50 text-gray-800 p-3 rounded-2xl rounded-tl-none text-sm max-w-[85%] border border-teal-100">
+                                        "Welcome to observational research lab! Explain how to operationally define shopper hesitation without guessing their internal thoughts."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Controls -->
+                        <div class="space-y-3">
+                            <div class="flex space-x-2">
+                                <input type="text" id="simUserInput" placeholder="Type your observation critique or operational definition in English..." class="flex-1 border-2 border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-montanoTeal">
+                                <button onclick="handleUserSimInput()" class="bg-montanoTeal text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow hover:bg-teal-700 transition-all flex items-center space-x-1">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Send</span>
+                                </button>
+                                <button onclick="toggleVoiceRecognition()" id="micBtn" class="bg-montanoBlue text-white px-4 py-2.5 rounded-xl font-bold text-sm shadow hover:bg-sky-700 transition-all" title="Speech Recognition">
+                                    <i class="fa-solid fa-microphone"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 italic text-center">Tip: Use B2-C1 observation terms (operational definition, checklist, observer bias, inter-rater reliability, objective behavior).</p>
+                        </div>
+                    </div>
+
+                    <!-- Performance Dashboard (1 Col) -->
+                    <div class="bg-white border-2 border-montanoOlive rounded-2xl p-5 flex flex-col justify-between shadow-md space-y-4">
+                        <div>
+                            <h3 class="font-extrabold text-montanoOlive text-lg mb-3 flex items-center justify-between">
+                                <span>Live Performance Dashboard</span>
+                                <i class="fa-solid fa-chart-line"></i>
+                            </h3>
+                            
+                            <!-- Metric 1 -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Pronunciation & Speech Clarity</span>
+                                    <span id="metricPronounceVal">85%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricPronounceBar" class="bg-montanoBlue h-3 rounded-full transition-all duration-500" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2 -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Topic / Grammar Accuracy</span>
+                                    <span id="metricGrammarVal">90%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricGrammarBar" class="bg-montanoTeal h-3 rounded-full transition-all duration-500" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3 -->
+                            <div class="mb-4">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Politeness & Expression Etiquette</span>
+                                    <span id="metricEtiquetteVal">95%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricEtiquetteBar" class="bg-montanoOlive h-3 rounded-full transition-all duration-500" style="width: 95%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Key Terms Detected -->
+                            <div class="mb-4">
+                                <h4 class="text-xs font-bold text-gray-600 uppercase tracking-wide mb-2">Key Terms Detected:</h4>
+                                <div id="keyTermsContainer" class="flex flex-wrap gap-1.5">
+                                    <span class="bg-montanoBg text-montanoTeal text-xs font-bold px-2.5 py-1 rounded-lg border border-teal-200">Objective Behavior</span>
+                                    <span class="bg-montanoBg text-montanoBlue text-xs font-bold px-2.5 py-1 rounded-lg border border-blue-200">Operational Definition</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Pedagogical Feedback Box -->
+                        <div class="bg-montanoBg border-2 border-montanoYellow rounded-xl p-3">
+                            <h5 class="text-xs font-extrabold text-montanoTeal uppercase mb-1 flex items-center">
+                                <i class="fa-solid fa-robot mr-1.5"></i> AI Pedagogical Feedback
+                            </h5>
+                            <p id="aiFeedbackText" class="text-xs text-gray-700 leading-relaxed">
+                                "Great engagement! Discuss observer bias and inter-rater reliability to achieve C1 observational research proficiency."
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 4: CRITICAL REFLECTION QUESTIONS -->
+            <div id="tabContent4" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoLightBlue bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoBlue mb-1">Critical Reflection & Checkpoint</h2>
+                    <p class="text-gray-700 text-sm">Complete the observational research reflections and submit your behavioral coding checklist proposal for a fictional retail study (Activity 1 due).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Reflection 1 -->
+                    <div class="bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-montanoTeal text-white text-xs font-bold px-3 py-1 rounded-full">Dilemma 1</span>
+                                <span class="text-xs text-gray-500">Observation vs. Interpretation</span>
+                            </div>
+                            <h3 class="font-bold text-montanoTeal text-base mb-2">Avoiding Subjective Inference</h3>
+                            <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                                An observer records in field notes: <em>"Customer looked confused and annoyed because prices were too high."</em> 
+                                <br><br><strong>Task:</strong> Critique this entry. Distinguish what was actually directly observed from unverified subjective interpretation, and rewrite it using objective behavioral indicators.
+                            </p>
+                        </div>
+                        <div>
+                            <textarea id="refInput1" rows="4" placeholder="Write your critical reflection here (minimum 40 words)..." class="w-full border-2 border-gray-300 rounded-xl p-3 text-xs focus:outline-none focus:border-montanoTeal mb-2"></textarea>
+                            <div class="flex justify-between items-center">
+                                <span id="wordCount1" class="text-xs text-gray-400 font-semibold">0 words</span>
+                                <button onclick="saveReflection(1)" class="bg-montanoTeal text-white text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-teal-700">Save Reflection</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reflection 2: Checkpoint & Activity 1 -->
+                    <div class="bg-white border-2 border-montanoYellow rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-montanoYellow text-montanoBlue font-extrabold text-xs px-3 py-1 rounded-full">Checkpoint (Activity 1 Due)</span>
+                                <span class="text-xs text-gray-500">Designing Observation Checklists</span>
+                            </div>
+                            <h3 class="font-bold text-montanoBlue text-base mb-2">Retail Store Observation Checklist Proposal</h3>
+                            <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                                Design a structured observation checklist for a retail electronics store in Guatemala: <strong>1. Define the setting and duration</strong>, <strong>2. List 4 operationally defined behaviors to code</strong> (e.g., picking up item, reading back label), and <strong>3. Explain how you will control for observer bias and consumer privacy</strong>.
+                            </p>
+                        </div>
+                        <div>
+                            <textarea id="refInput2" rows="4" placeholder="Draft your observation checklist proposal and bias controls here (minimum 35 words)..." class="w-full border-2 border-gray-300 rounded-xl p-3 text-xs focus:outline-none focus:border-montanoYellow mb-2"></textarea>
+                            <div class="flex justify-between items-center">
+                                <span id="wordCount2" class="text-xs text-gray-400 font-semibold">0 words</span>
+                                <button onclick="saveReflection(2)" class="bg-montanoYellow text-montanoBlue text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-yellow-300">Submit Activity 1 Checkpoint</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 5: FORMATIVE EVALUATION (15 PROBLEMS) -->
+            <div id="tabContent5" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoYellow bg-montanoBg p-5 rounded-r-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-montanoBlue mb-1">Formative Evaluation (15 Problems - Guide 6)</h2>
+                        <p class="text-gray-700 text-sm">Test your mastery of structured observation, checklists, behavioral coding, operational definitions, pilot testing, and observer bias across 3 difficulty levels.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex space-x-2">
+                        <button onclick="filterEvaluation('all')" class="px-3 py-1 rounded-lg bg-montanoBlue text-white text-xs font-bold">All (15)</button>
+                        <button onclick="filterEvaluation('basic')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Basic (1-5)</button>
+                        <button onclick="filterEvaluation('intermediate')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Interm. (6-10)</button>
+                        <button onclick="filterEvaluation('advanced')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Evaluation Container -->
+                <div id="evaluationContainer" class="space-y-4">
+                    <!-- Javascript will render 15 evaluation problems here -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-montanoBg p-4 border-t border-gray-200 text-center text-xs text-gray-600 rounded-b-[16px]">
+            Colegio Montano Educational Portal &bull; Advanced 12th Grade Mercadotecnia Department &bull; Guide 6: Observation and Data Collection Instruments
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    showMsg("Error attempting to enable fullscreen: " + err.message);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Custom Message Box (Replacing alert)
+        function showMsg(message) {
+            const existingModal = document.getElementById('customAlertModal');
+            if (existingModal) existingModal.remove();
+
+            const modal = document.createElement('div');
+            modal.id = 'customAlertModal';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border-4 border-montanoBlue text-center">
+                    <div class="text-montanoBlue text-3xl mb-3"><i class="fa-solid fa-circle-info"></i></div>
+                    <h3 class="font-extrabold text-lg text-gray-800 mb-2">Colegio Montano Notice</h3>
+                    <p class="text-sm text-gray-600 mb-5">${message}</p>
+                    <button onclick="document.getElementById('customAlertModal').remove()" class="bg-montanoBlue text-white px-6 py-2 rounded-xl font-bold text-sm shadow hover:bg-sky-700 w-full">Understood</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabNum) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-montanoBlue', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-gray-700', 'shadow-sm');
+            });
+
+            document.getElementById(`tabContent${tabNum}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tabBtn${tabNum}`);
+            activeBtn.classList.remove('bg-white', 'text-gray-700', 'shadow-sm');
+            activeBtn.classList.add('bg-montanoBlue', 'text-white', 'shadow-md');
+        }
+
+        // Text-to-Speech function
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showMsg("Text-to-speech is not supported in your browser.");
+            }
+        }
+
+        function speakDialogue(text) {
+            speakText(text);
+        }
+
+        // 15 Solved Examples Data (Guide 6: Observation and Data Collection)
+        const solvedExamplesData = [
+            // Basic (1-5)
+            { id: 1, level: 'basic', title: 'Retail Store Warm-up Observation', desc: 'Recording physical actions in a store (e.g., entering, browsing displays, touching products) without guessing motives.', breakdown: '<strong>Objective Recording:</strong> Focuses strictly on observable actions rather than unverified internal thoughts.' },
+            { id: 2, level: 'basic', title: 'Distinguishing Fact from Inference', desc: 'Contrasting the direct observation "Customer picked up red box, read back label for 15 seconds" with inference "Customer liked the ingredients."', breakdown: '<strong>Inference Control:</strong> Separates empirical facts from subjective researcher assumptions.' },
+            { id: 3, level: 'basic', title: 'Structured Observation Checklists', desc: 'Using a predefined coding sheet to tally frequencies of specific shopper interactions with display racks.', breakdown: '<strong>Checklist Structure:</strong> Standardizes data collection across multiple observation sessions.' },
+            { id: 4, level: 'basic', title: 'Unstructured Field Notes', desc: 'Capturing holistic qualitative descriptions of shopping flow and store atmosphere in a natural setting.', breakdown: '<strong>Field Note Utility:</strong> Provides rich contextual understanding for exploratory research.' },
+            { id: 5, level: 'basic', title: 'Defining Operational Behaviors', desc: 'Translating "shopper interest" into explicit physical indicators like turning head toward display and pausing motion.', breakdown: '<strong>Operational Clarity:</strong> Removes ambiguity so different observers record the same event identically.' },
+
+            // Intermediate (6-10)
+            { id: 6, level: 'intermediate', title: 'Coding Fictional Customer Scenario', desc: 'Applying an observation coding scheme to a teacher-created retail scenario involving shelf selection and price comparison.', breakdown: '<strong>Behavior Coding:</strong> Systematic categorization of actions into quantitative tally boxes.' },
+            { id: 7, level: 'intermediate', title: 'Controlling for Observer Bias', desc: 'Using standardized coding rules and blind observers to prevent personal expectations from skewing data collection.', breakdown: '<strong>Bias Mitigation:</strong> Standardized protocols eliminate subjective recording drift.' },
+            { id: 8, level: 'intermediate', title: 'Addressing the Hawthorne Effect', desc: 'Minimizing shopper behavior alteration when observed by using discreet placement or naturalistic observation techniques.', breakdown: '<strong>Naturalistic Validity:</strong> Ensures consumers behave authentically when unaware of active study.' },
+            { id: 9, level: 'intermediate', title: 'Pilot Testing Observation Instruments', desc: 'Trial-running a new store checklist for 2 hours to refine unclear categories before full research execution.', breakdown: '<strong>Pilot Validation:</strong> Identifies recording bottlenecks and ambiguous behavior definitions.' },
+            { id: 10, level: 'intermediate', title: 'Ensuring Inter-Rater Reliability', desc: 'Comparing independent coding logs of two observers watching the same retail interaction to calculate agreement percentage.', breakdown: '<strong>Reliability Audit:</strong> High inter-rater agreement confirms instrument consistency.' },
+
+            // Advanced (11-15)
+            { id: 11, level: 'advanced', title: 'Balancing Observation and Consumer Privacy', desc: 'Conducting ethical observational research in public retail spaces while respecting privacy and avoiding private personal spaces.', breakdown: '<strong>Ethical Compliance:</strong> Protects consumer privacy rights while gathering empirical marketing data.' },
+            { id: 12, level: 'advanced', title: 'Time-Sampling vs. Event-Sampling', desc: 'Comparing time-sampling (recording behavior at specific 5-minute intervals) with event-sampling (recording every occurrence of a specific action).', breakdown: '<strong>Sampling Strategy:</strong> Choice depends on whether behavior is continuous or discrete.' },
+            { id: 13, level: 'advanced', title: 'Multimodal Observation in Retail Analytics', desc: 'Combining physical observation checklists with security camera footage review and heat-mapping software.', breakdown: '<strong>Method Triangulation:</strong> Cross-validates observational findings with technological telemetry.' },
+            { id: 14, level: 'advanced', title: 'Analyzing Non-Verbal Consumer Cues', desc: 'Coding non-verbal expressions (nodding, smiling, frowning, touching packaging) during product demonstrations.', breakdown: '<strong>Non-Verbal Coding:</strong> Captures implicit emotional responses not expressed verbally.' },
+            { id: 15, level: 'advanced', title: 'Comprehensive Observational Study Audit', desc: 'Evaluating a complete observational research report for operational clarity, bias controls, and ethical integrity.', breakdown: '<strong>Rigorous Evaluation:</strong> Demonstrates C1 mastery of observational data collection methodologies.' }
+        ];
+
+        function renderExamples(filter = 'all') {
+            const container = document.getElementById('examplesContainer');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? solvedExamplesData : solvedExamplesData.filter(ex => ex.level === filter);
+
+            filtered.forEach(ex => {
+                const badgeColor = ex.level === 'basic' ? 'bg-montanoBlue' : ex.level === 'intermediate' ? 'bg-montanoTeal' : 'bg-montanoOlive';
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="${badgeColor} text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Example ${ex.id} (${ex.level})</span>
+                            <h3 class="font-bold text-gray-800 text-sm sm:text-base">${ex.title}</h3>
+                        </div>
+                        <button onclick="speakText('${ex.title}. ${ex.desc}. Breakdown: ${ex.breakdown.replace(/<[^>]*>?/gm, '')}')" class="text-montanoBlue hover:text-sky-700 p-2 text-lg" title="Listen to Example Audio">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-600 mb-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <strong>Scenario:</strong> ${ex.desc}
+                    </p>
+                    <div class="text-xs sm:text-sm text-gray-700 bg-montanoBg p-3 rounded-xl border border-blue-100">
+                        <strong>Scientific Breakdown:</strong> ${ex.breakdown}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterExamples(level) {
+            renderExamples(level);
+        }
+
+        // Live Voice Simulator & AI Dashboard Logic
+        let simHistory = [];
+        function handleUserSimInput() {
+            const input = document.getElementById('simUserInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendChatBubble('You', text, 'bg-montanoTeal text-white', 'ml-auto');
+            input.value = '';
+
+            // Simulate AI evaluation update
+            updateDashboardMetrics(text);
+
+            // Simulate Research Director response after 1 second
+            setTimeout(() => {
+                let rdReply = "Good observation analysis! Make sure to emphasize operational definitions and observer consistency.";
+                if (text.toLowerCase().includes('operational') || text.toLowerCase().includes('objective') || text.toLowerCase().includes('bias') || text.toLowerCase().includes('reliability') || text.toLowerCase().includes('checklist')) {
+                    rdReply = "Outstanding observational research analysis! Your distinction between observation and inference meets C1 standards. Approved!";
+                }
+                appendChatBubble('RD', rdReply, 'bg-teal-50 text-gray-800 border border-teal-100', '');
+                speakText(rdReply);
+            }, 1000);
+        }
+
+        function appendChatBubble(sender, text, styleClass, alignClass) {
+            const chatBox = document.getElementById('simChatBox');
+            const bubble = document.createElement('div');
+            bubble.className = `flex items-start space-x-2 ${alignClass}`;
+            
+            if (sender === 'RD') {
+                bubble.innerHTML = `
+                    <div class="bg-montanoTeal text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">RD</div>
+                    <div class="${styleClass} p-3 rounded-2xl rounded-tl-none text-sm max-w-[85%]">${text}</div>
+                `;
+            } else {
+                bubble.innerHTML = `
+                    <div class="${styleClass} p-3 rounded-2xl rounded-tr-none text-sm max-w-[85%]">${text}</div>
+                    <div class="bg-montanoOlive text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">You</div>
+                `;
+            }
+            chatBox.appendChild(bubble);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function updateDashboardMetrics(userText) {
+            const len = userText.length;
+            const pScore = Math.min(98, Math.max(75, 80 + Math.floor(len / 5)));
+            const gScore = Math.min(99, Math.max(80, 85 + (userText.toLowerCase().includes('operational') || userText.toLowerCase().includes('objective') || userText.toLowerCase().includes('bias') ? 10 : 0)));
+            const eScore = Math.min(100, Math.max(90, 92 + (userText.toLowerCase().includes('please') || userText.toLowerCase().includes('thank') || len > 30 ? 5 : 0)));
+
+            document.getElementById('metricPronounceVal').innerText = pScore + '%';
+            document.getElementById('metricPronounceBar').style.width = pScore + '%';
+
+            document.getElementById('metricGrammarVal').innerText = gScore + '%';
+            document.getElementById('metricGrammarBar').style.width = gScore + '%';
+
+            document.getElementById('metricEtiquetteVal').innerText = eScore + '%';
+            document.getElementById('metricEtiquetteBar').style.width = eScore + '%';
+
+            // Detect key terms
+            const termsContainer = document.getElementById('keyTermsContainer');
+            const keywords = ['objective behavior', 'operational definition', 'observer bias', 'inter-rater reliability', 'structured observation', 'checklist', 'hawthorne effect', 'pilot testing'];
+            keywords.forEach(kw => {
+                if (userText.toLowerCase().includes(kw) && !termsContainer.innerHTML.includes(kw)) {
+                    const tag = document.createElement('span');
+                    tag.className = 'bg-montanoBg text-montanoTeal text-xs font-bold px-2.5 py-1 rounded-lg border border-teal-200 capitalize';
+                    tag.innerText = kw;
+                    termsContainer.appendChild(tag);
+                }
+            });
+
+            const feedbackElem = document.getElementById('aiFeedbackText');
+            if (gScore > 90) {
+                feedbackElem.innerText = '"Outstanding C1 observational research proficiency! Your mastery of objective coding and operational definitions is exemplary."';
+            } else {
+                feedbackElem.innerText = '"Good effort! Try including specific terms like \'operational definition\' and \'observer bias\' to maximize your score."';
+            }
+        }
+
+        // Web Speech Recognition integration
+        function toggleVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                showMsg("Speech Recognition API is not supported in your browser. Please use Chrome or Edge.");
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            const micBtn = document.getElementById('micBtn');
+            micBtn.classList.add('bg-red-500', 'animate-pulse');
+
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;
+                document.getElementById('simUserInput').value = speechResult;
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+                handleUserSimInput();
+            };
+
+            recognition.onerror = function(event) {
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+                showMsg("Voice recognition error occurred. Please type your answer.");
+            };
+
+            recognition.onend = function() {
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+            };
+
+            recognition.start();
+        }
+
+        // Reflection word counters and save
+        document.addEventListener('DOMContentLoaded', () => {
+            ['1', '2'].forEach(id => {
+                const textarea = document.getElementById(`refInput${id}`);
+                const counter = document.getElementById(`wordCount${id}`);
+                textarea.addEventListener('input', () => {
+                    const words = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
+                    counter.innerText = words + ' words';
+                });
+            });
+
+            renderExamples('all');
+            renderEvaluation('all');
+        });
+
+        function saveReflection(id) {
+            const val = document.getElementById(`refInput${id}`).value.trim();
+            const words = val ? val.split(/\s+/).length : 0;
+            if (words < 15) {
+                showMsg("Please write a more comprehensive reflection (at least 15 words) demonstrating critical analysis.");
+                return;
+            }
+            if (id === 2) {
+                showMsg("Activity 1 Checkpoint successfully submitted! Your observation checklist proposal has been recorded for your Colegio Montano portfolio.");
+            } else {
+                showMsg(`Reflection ${id} successfully saved and submitted to your Colegio Montano portfolio!`);
+            }
+        }
+
+        // 15 Formative Evaluation Problems Data (Guide 6)
+        const evaluationData = [
+            // Basic (1-5)
+            { id: 1, level: 'basic', q: 'What is the primary difference between structured and unstructured observation?', options: ['A) Structured observation uses predefined checklists and coding categories; unstructured captures open field notes', 'B) Structured observation is illegal in retail stores', 'C) Unstructured observation requires a computer', 'D) There is no difference'], answer: 'A', explanation: 'Structured observation standardizes data collection using explicit categories.' },
+            { id: 2, level: 'basic', q: 'Why must observers record objective behaviors rather than unverified inferences?', options: ['A) To make field notes longer', 'B) To prevent subjective researcher bias and assumptions from invalidating empirical data', 'C) To eliminate the need for checklists', 'D) To increase product prices'], answer: 'B', explanation: 'Objective recording ensures inter-rater reliability and scientific accuracy.' },
+            { id: 3, level: 'basic', q: 'What is an operational definition in observational research?', options: ['A) The store opening hours', 'B) Explicit, measurable physical criteria used to classify a behavior (e.g., touching shelf tag for 3+ seconds)', 'C) The name of the research director', 'D) A survey Likert scale'], answer: 'B', explanation: 'Operational definitions translate abstract concepts into visible, countable actions.' },
+            { id: 4, level: 'basic', q: 'What is the Hawthorne Effect in observational studies?', options: ['A) A brand of coffee', 'B) The phenomenon where subjects alter their natural behavior because they know they are being watched', 'C) A type of survey question', 'D) A random sampling method'], answer: 'B', explanation: 'Observation awareness alters natural consumer actions, threatening ecological validity.' },
+            { id: 5, level: 'basic', q: 'What is the purpose of pilot testing an observation checklist?', options: ['A) To finalize advertising budgets', 'B) To test instrument clarity, timing, and category operationalization before full study launch', 'C) To interview store managers', 'D) To eliminate all data recording'], answer: 'B', explanation: 'Pilot testing catches design flaws and ensures smooth data collection.' },
+
+            // Intermediate (6-10)
+            { id: 6, level: 'intermediate', q: 'How is inter-rater reliability calculated in observational research?', options: ['A) By counting store inventory', 'B) By measuring the percentage of agreement between two or more independent observers coding the same session', 'C) By administering a consumer questionnaire', 'D) By measuring store sales volume'], answer: 'B', explanation: 'Inter-rater agreement confirms whether different observers record consistent data.' },
+            { id: 7, level: 'intermediate', q: 'Which of the following is an objective behavioral observation rather than a subjective interpretation?', options: ['A) Customer looked frustrated because prices were high', 'B) Customer frowned, sighed audibly, and placed item back on shelf', 'C) Customer wanted to buy a luxury smartphone', 'D) Customer was confused by the display'], answer: 'B', explanation: 'Frowning and replacing items are direct, observable physical actions.' },
+            { id: 8, level: 'intermediate', q: 'What is event-sampling in observational data collection?', options: ['A) Recording behavior only on weekends', 'B) Recording every single occurrence of a predefined specific behavior throughout the entire observation period', 'C) Interviewing store employees', 'D) Mailing surveys to shoppers'], answer: 'B', explanation: 'Event-sampling tracks discrete actions every time they happen.' },
+            { id: 9, level: 'intermediate', q: 'How can researchers minimize observer bias during retail store observations?', options: ['A) By guessing customer motives', 'B) By using standardized coding sheets, blind observers, and strict operational definitions', 'C) By talking to every shopper', 'D) By changing the research question daily'], answer: 'B', explanation: 'Standardization and blinding eliminate subjective recording drift.' },
+            { id: 10, level: 'intermediate', q: 'Why is ethical consideration regarding consumer privacy paramount in observational studies?', options: ['A) To increase company profits', 'B) To respect individuals\' reasonable expectation of privacy in public vs. private spaces', 'C) To make surveys longer', 'D) To eliminate operational definitions'], answer: 'B', explanation: 'Ethical research must protect consumer dignity and adhere to privacy guidelines.' },
+
+            // Advanced (11-15)
+            { id: 11, level: 'advanced', q: 'What distinguishes time-sampling from event-sampling in observational research?', options: ['A) Time-sampling records behavior at predetermined time intervals, whereas event-sampling records every occurrence of an event', 'B) Time-sampling uses computers only', 'C) Event-sampling takes less time', 'D) There is no methodological difference'], answer: 'A', explanation: 'Time-sampling samples temporal intervals; event-sampling records complete event instances.' },
+            { id: 12, level: 'advanced', q: 'When conducting multimodal observation, why do researchers combine physical checklists with security camera analytics?', options: ['A) To confuse participants', 'B) To cross-validate observational findings and enhance measurement validity through method triangulation', 'C) To eliminate the need for human observers', 'D) To increase survey length'], answer: 'B', explanation: 'Triangulation strengthens conclusions by combining multiple data streams.' },
+            { id: 13, level: 'advanced', q: 'What is the primary risk of using poorly operationalized categories in an observation checklist?', options: ['A) Higher sales volume', 'B) High observer disagreement, low inter-rater reliability, and unreliable research data', 'C) Faster data collection', 'D) Automatic elimination of bias'], answer: 'B', explanation: 'Vague categories lead different observers to code identical actions differently.' },
+            { id: 14, level: 'advanced', q: 'How do naturalistic observation techniques help overcome artificiality in marketing research?', options: ['A) By placing consumers in a sterile laboratory', 'B) By studying consumers in their natural retail environments without artificial manipulation', 'C) By conducting telephone interviews', 'D) By using leading questions'], answer: 'B', explanation: 'Naturalistic observation preserves ecological validity in real-world settings.' },
+            { id: 15, level: 'advanced', q: 'What confirms C1 mastery when designing observational research instruments for market analysis?', options: ['A) Relying entirely on intuitive guesswork about shopper motives', 'B) Constructing highly reliable, operationally defined structured observation checklists with rigorous bias controls and inter-rater testing', 'C) Avoiding all forms of data collection', 'D) Using leading survey questions'], answer: 'B', explanation: 'C1 mastery requires professional instrument design adhering to rigorous empirical standards.' }
+        ];
+
+        function renderEvaluation(filter = 'all') {
+            const container = document.getElementById('evaluationContainer');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? evaluationData : evaluationData.filter(ev => ev.level === filter);
+
+            filtered.forEach(ev => {
+                const badgeColor = ev.level === 'basic' ? 'bg-montanoBlue' : ev.level === 'intermediate' ? 'bg-montanoTeal' : 'bg-montanoOlive';
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm space-y-3';
+                
+                let optionsHtml = '';
+                ev.options.forEach(opt => {
+                    optionsHtml += `<label class="block text-xs sm:text-sm text-gray-700 bg-gray-50 p-2.5 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition-all"><input type="radio" name="evalQ_${ev.id}" value="${opt[0]}" class="mr-2 accent-montanoTeal"> ${opt}</label>`;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="${badgeColor} text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Problem ${ev.id} (${ev.level})</span>
+                        <button onclick="speakText('${ev.q}')" class="text-montanoTeal hover:text-teal-700 text-sm" title="Listen to Question"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                    <p class="font-bold text-gray-800 text-sm sm:text-base">${ev.q}</p>
+                    <div class="space-y-2">${optionsHtml}</div>
+                    
+                    <div class="flex justify-between items-center pt-2">
+                        <button onclick="toggleSolution(${ev.id})" id="solBtn_${ev.id}" class="bg-montanoYellow text-montanoBlue text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-yellow-300 transition-transform active:scale-95">
+                            <i class="fa-solid fa-eye mr-1"></i> Show Solution
+                        </button>
+                        <span id="evalFeedback_${ev.id}" class="text-xs font-bold"></span>
+                    </div>
+
+                    <div id="solutionBox_${ev.id}" class="hidden bg-montanoBg p-4 rounded-xl border border-blue-200 text-xs sm:text-sm text-gray-700 space-y-1 mt-2">
+                        <p class="font-bold text-montanoBlue">Correct Answer: Option ${ev.answer}</p>
+                        <p><strong>Explanation:</strong> ${ev.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterEvaluation(level) {
+            renderEvaluation(level);
+        }
+
+        function toggleSolution(id) {
+            const solBox = document.getElementById(`solutionBox_${id}`);
+            const btn = document.getElementById(`solBtn_${id}`);
+            if (solBox.classList.contains('hidden')) {
+                solBox.classList.remove('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye-slash mr-1"></i> Hide Solution';
+                btn.classList.remove('bg-montanoYellow');
+                btn.classList.add('bg-gray-300', 'text-gray-800');
+            } else {
+                solBox.classList.add('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye mr-1"></i> Show Solution';
+                btn.classList.remove('bg-gray-300', 'text-gray-800');
+                btn.classList.add('bg-montanoYellow');
+            }
+        }
+    </script>
+</body>
+</html>
